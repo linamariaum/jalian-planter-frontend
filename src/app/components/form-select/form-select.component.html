@@ -1,0 +1,15 @@
+<div [formGroup]="controlForm">
+    <label>{{titleOption}}</label>
+    <select class="form-control" id="exampleFormControlSelect1" formControlName="select" (click)="onClick()">
+        <option *ngFor="let item of items" [value]="item.value">
+            {{item.value}}
+        </option>
+    </select>
+</div>
+
+<!-- 
+<app-select titleOption="Materia" 
+    [items]="materia" 
+    (selected)="course=$event">
+</app-select>
+ -->

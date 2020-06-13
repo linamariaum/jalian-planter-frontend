@@ -2,3 +2,28 @@
 @import "~bootswatch/dist/materia/variables";
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootswatch/dist/materia/bootswatch";
+
+$green-dark:    #1b4b36 !default;
+$green-ligth:   #538f6a !default;
+$green-cake:    #aebd77 !default;
+$color-blank:   #e0e7f1 !default;
+
+.background-green-dark {
+    background-color: $green-dark;
+}
+
+.background-green-ligth {
+    background-color: $green-ligth;
+}
+
+.background-green-cake {
+    background-color: $green-cake;
+}
+
+.background-color-blank {
+    background-color: $color-blank;
+}
+
+.h1 {
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

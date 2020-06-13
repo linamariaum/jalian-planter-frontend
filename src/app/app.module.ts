@@ -1,17 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { AuthComponent } from './components/auth/auth.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { FormComponent } from './components/form/form.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ListPotsComponent } from './components/list-pots/list-pots.component';
-import { PotComponent } from './components/pot/pot.component';
-import { ReportPotComponent } from './components/report-pot/report-pot.component';
+import { AuthComponent } from './pages/auth/auth.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { ListPotsComponent } from './pages/list-pots/list-pots.component';
+import { PotComponent } from './pages/pot/pot.component';
+import { ReportPotComponent } from './pages/report-pot/report-pot.component';
+import { FormInputComponent } from './components/form-input/form-input.component';
+import { FormSelectComponent } from './components/form-select/form-select.component';
 
 @NgModule({
   declarations: [
@@ -20,15 +22,18 @@ import { ReportPotComponent } from './components/report-pot/report-pot.component
     FooterComponent,
     AuthComponent,
     ProfileComponent,
-    FormComponent,
     SignUpComponent,
     ListPotsComponent,
     PotComponent,
-    ReportPotComponent
+    ReportPotComponent,
+    FormInputComponent,
+    FormSelectComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
