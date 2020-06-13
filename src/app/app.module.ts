@@ -14,6 +14,7 @@ import { PotComponent } from './pages/pot/pot.component';
 import { ReportPotComponent } from './pages/report-pot/report-pot.component';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormSelectComponent } from './components/form-select/form-select.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FormSelectComponent } from './components/form-select/form-select.compon
     PotComponent,
     ReportPotComponent,
     FormInputComponent,
-    FormSelectComponent
+    FormSelectComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
