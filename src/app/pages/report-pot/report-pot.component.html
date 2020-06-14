@@ -1,1 +1,12 @@
-<p>report-pot works!</p>
+<h1>Información de la matera {{pot.name}}</h1>
+
+<h3>El tipo de su planta es {{pot.type}}</h3>
+
+<h1>Los mensajes que están llegando por ahora son</h1>
+<ul>
+    <li *ngFor="let message of messagesList">
+        {{message}}
+    </li>
+</ul>
+
+<h3>Van las graficas</h3>

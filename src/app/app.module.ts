@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+// Stomp 
+import {StompConfig, StompService} from "@stomp/ng2-stompjs";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +18,18 @@ import { PotComponent } from './pages/pot/pot.component';
 import { ReportPotComponent } from './pages/report-pot/report-pot.component';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormSelectComponent } from './components/form-select/form-select.component';
+
+const stompConfig: StompConfig = {
+  url: 'ws://127.0.0.1:15674/ws',
+  headers: {
+    login: 'guest',
+    passcode: 'guest'
+  },
+  heartbeat_in: 0,
+  heartbeat_out: 2000,
+  reconnect_delay: 60000,
+  debug: true
+}
 
 @NgModule({
   declarations: [
@@ -33,9 +49,14 @@ import { FormSelectComponent } from './components/form-select/form-select.compon
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [StompService, 
+    {
+    provide: StompConfig,
+    useValue: stompConfig
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
