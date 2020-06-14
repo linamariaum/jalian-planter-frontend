@@ -6,7 +6,9 @@
 $green-dark:    #1b4b36 !default;
 $green-ligth:   #538f6a !default;
 $green-cake:    #aebd77 !default;
-$color-blank:   #e0e7f1 !default;
+$color-blank:   #e8ebee !default;
+$brown-ligth:   #fad8bb !default; //d7e1eb
+$fondo:         #e0e7f1 !default;
 
 .background-green-dark {
     background-color: $green-dark;
@@ -26,4 +28,16 @@ $color-blank:   #e0e7f1 !default;
 
 .h1 {
     font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.Container-center {
+    //margin: 2rem 30rem 2rem 30rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    justify-content: center;
+    background-color: $color-blank;
+}
+
+.fondo {
+    background-color: $fondo;
 }
