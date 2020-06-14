@@ -19,9 +19,8 @@ export class ChartComponent implements OnInit {
 
   @Input()
   dates: [];
-
+  id : any;
   public chart: any = null;
-  public nameChart: any;
 
   constructor() { }
 
@@ -30,8 +29,11 @@ export class ChartComponent implements OnInit {
   }
 
   showData() {
-    this.nameChart = this.position;
-    this.chart = new Chart('0', {
+    console.log(this.randomId(3));
+    console.log(typeof this.randomId(3));
+    this.id = 'hola';
+    console.log(typeof this.id)
+    this.chart = new Chart(this.id, {
       type: 'line',
       data: {
         labels: [],
@@ -97,5 +99,15 @@ export class ChartComponent implements OnInit {
     this.chart.update();
     
   }
+
+  randomId(length) {
+    var result = '';
+    var characters = 'abcdefghijklmnopqrstuvwxyz';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
 
 }
