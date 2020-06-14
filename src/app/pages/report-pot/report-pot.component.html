@@ -1,12 +1,29 @@
-<h1>Información de la matera {{pot.name}}</h1>
+<h1>{{pot.name}}</h1>
 
 <h3>El tipo de su planta es {{pot.type}}</h3>
 
-<h1>Los mensajes que están llegando por ahora son</h1>
-<ul>
+<h1>Los mensajes hasta ahora son:</h1>
+
+<div *ngFor="let sensor of sensorValues">
+    <h4>Name: {{sensor.name}}</h4>
+    <h6>Fechas</h6>
+    <ul>
+        <li *ngFor="let date of sensor.dates">
+            Fecha: {{date}}
+        </li>
+    </ul>
+
+    <h6>Valores</h6>
+    <ul>
+        <li *ngFor="let value of sensor.values">
+            Valor: {{value}}
+        </li>
+    </ul>
+</div>
+<!--<ul>
     <li *ngFor="let message of messagesList">
         {{message}}
     </li>
-</ul>
+</ul> -->
 
 <h3>Van las graficas</h3>

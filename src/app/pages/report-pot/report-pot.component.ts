@@ -5,6 +5,7 @@ import {Message} from '@stomp/stompjs';
 import {Observable, Subscription} from "rxjs";
 import { Router, ActivatedRoute } from '@angular/router';
 import { PotServiceService } from 'src/app/services/pot-service.service';
+import { FormatSensorValuesService } from 'src/app/services/format-sensor-values.service';
 
 
 @Component({
@@ -17,15 +18,16 @@ export class ReportPotComponent implements OnInit {
   messages: Observable<Message>;
   subscription: Subscription;
   messagesList: Array<String> = [];
+  sensorValues: Array<any> = []
   params: Subscription;
-  pot: any;
-  sensorInfo :any;
+  pot: any = {};
 
   constructor(
     private stompService: StompService,
     private route: ActivatedRoute,
     private router: Router,
-    private potService: PotServiceService) { }
+    private potService: PotServiceService,
+    private formatValuesService: FormatSensorValuesService) { }
 
   ngOnInit(): void {
 
@@ -42,8 +44,8 @@ export class ReportPotComponent implements OnInit {
         });
 
         this.potService.getMessagesOfAPot(potId).subscribe(data => {
-          this.sensorInfo = data;
-          console.log(this.sensorInfo);
+          this.sensorValues = this.formatValuesService.formatSensorData(data);
+          console.log(this.sensorValues);
         });
 
       }
@@ -55,7 +57,6 @@ export class ReportPotComponent implements OnInit {
 
   public on_message = (message: Message) => {
     const body = message.body;
-    console.log("Aquí se actualizaría");
     this.messagesList.push(body + '\n');
   }
 
