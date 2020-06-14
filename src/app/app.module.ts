@@ -18,6 +18,7 @@ import { PotComponent } from './pages/pot/pot.component';
 import { ReportPotComponent } from './pages/report-pot/report-pot.component';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormSelectComponent } from './components/form-select/form-select.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 const stompConfig: StompConfig = {
   url: 'ws://127.0.0.1:15674/ws',
@@ -43,7 +44,8 @@ const stompConfig: StompConfig = {
     PotComponent,
     ReportPotComponent,
     FormInputComponent,
-    FormSelectComponent
+    FormSelectComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
