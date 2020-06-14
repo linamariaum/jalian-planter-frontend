@@ -17,7 +17,6 @@ export class ReportPotComponent implements OnInit {
 
   messages: Observable<Message>;
   subscription: Subscription;
-  messagesList: Array<String> = [];
   sensorValues: Array<any> = []
   params: Subscription;
   pot: any = {};
@@ -35,29 +34,45 @@ export class ReportPotComponent implements OnInit {
       const potId = params['id'];
 
       if (potId) {
+
+        //Traer la información de la plnata
+        this.potService.getPodByid(potId).subscribe(data => {
+          this.pot = data;
+
+          this.potService.getMessagesOfAPot(potId).subscribe(data => {
+            // Cada sensor separado en un vector
+            this.sensorValues = this.formatValuesService.formatSensorData(data);
+          });
+
+        }, err => {
+          alert("No existe la matera");
+        });
+
+        //Esto lo hace cada sensor
         const topic = `/topic/pot_${potId}`;
         this.messages = this.stompService.subscribe(topic);
         this.subscription = this.messages.subscribe(this.on_message);
-        this.potService.getPodByid(potId).subscribe(data => {
-          this.pot = data;
-          console.log(this.pot);
-        });
-
-        this.potService.getMessagesOfAPot(potId).subscribe(data => {
-          this.sensorValues = this.formatValuesService.formatSensorData(data);
-          console.log(this.sensorValues);
-        });
-
       }
       else {
-        console.log("No llego identificador");
+        alert("No hay id");
       }
+    }, err => {
+      alert("Redirija");
     });
   }
 
+  //Cada sensor se subscribe
   public on_message = (message: Message) => {
     const body = message.body;
-    this.messagesList.push(body + '\n');
+    let data = body.split(":");
+ 
+    for (let sensor of this.sensorValues) {
+      if (sensor.id == data[0]) {
+        sensor.values.push(Number(data[1]));
+        sensor.dates.push("Otra fecha");
+        break;
+      } 
+    }
   }
 
   ngOnDestroy(): void {
