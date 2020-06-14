@@ -12,24 +12,26 @@ export class ChartComponent implements OnInit {
   nameDevice: String;
 
   @Input()
-  values: any;
+  position: string;
 
   @Input()
-  dates: any;
+  values: [];
 
+  @Input()
+  dates: [];
 
   public chart: any = null;
-
+  public nameChart: any;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.showData()
+    this.showData();
   }
 
-
   showData() {
-    this.chart = new Chart('realtime', {
+    this.nameChart = this.position;
+    this.chart = new Chart('0', {
       type: 'line',
       data: {
         labels: [],
@@ -73,7 +75,11 @@ export class ChartComponent implements OnInit {
   }
 
   setInitialData(){
-    this.chart.data.labels = this.values;
+    this.chart.data.labels = this.dates.map(date => {
+      let formatDate: string = date;
+      return formatDate.split("T")[0]
+    });
+
     this.chart.data.datasets[0].data= this.values;
     this.chart.update();
   }

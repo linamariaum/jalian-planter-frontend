@@ -20,6 +20,7 @@ export class ReportPotComponent implements OnInit {
   sensorValues: Array<any> = []
   params: Subscription;
   pot: any = {};
+  data :any;
 
   constructor(
     private stompService: StompService,

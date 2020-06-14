@@ -32,6 +32,12 @@ export class FormatSensorValuesService {
         }
         previousSensorId = message.potDevice.device.id
       }
+
+      if (sensorInfo.dates.length > 14) {
+        sensorInfo.dates = sensorInfo.dates.slice(1);
+        sensorInfo.values = sensorInfo.values.slice(1);
+      } 
+ 
       sensorInfo.dates.push(message.createdDate);
       sensorInfo.values.push(message.value);
     }

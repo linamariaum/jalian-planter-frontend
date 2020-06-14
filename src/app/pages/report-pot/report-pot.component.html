@@ -22,3 +22,8 @@
 </div>
 
 <h3>Van las graficas</h3>
+
+<div *ngFor="let sensor of sensorValues; let i = index">
+    <app-chart [nameDevice]="sensor.name" [values]="sensor.values" 
+    [dates]="sensor.dates" position="{{i}}"></app-chart>
+</div>
