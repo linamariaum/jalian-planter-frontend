@@ -1,1 +1,12 @@
-<p>form-input works!</p>
+<form>
+    <div class="form-row" style="justify-content: center;">
+        <div class="col-md-6 mb-3">
+            <label for="validationServer01" class="lead">{{titulo}}</label>
+            <input #label [type]="tipo" class="form-control is-valid" (keyup.enter)="update(label.value)" (blur)="update(label.value)"
+                required [placeholder]="ejemplo">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+    </div>
+</form>
