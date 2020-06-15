@@ -1,1 +1,13 @@
-<p>form-input works!</p>
+<form [formGroup]="controlForm">
+    <div class="form-row" style="justify-content: center;">
+        <div class="col-md-6 mb-3">
+            <label class="lead"><strong>{{titulo}}</strong></label>
+            <input #label [type]="tipo" class="form-control" (keyup.enter)="update(label.value)" (blur)="update(label.value)"
+                required [placeholder]="ejemplo" formControlName="content">
+            <div class="valid-feedback" *ngIf="!controlForm.invalid">
+                Looks good!
+            </div>
+            <span style="color: red;">{{getError('content')}}</span>
+        </div>
+    </div>
+</form>

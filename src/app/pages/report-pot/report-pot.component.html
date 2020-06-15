@@ -1,1 +1,10 @@
-<p>report-pot works!</p>
+<h1>{{pot.name}}</h1>
+
+<h3>El tipo de su planta es {{pot.type}}</h3>
+
+<h3>Estadísticas</h3>
+
+<div *ngFor="let sensor of sensorValues; let i = index">
+    <app-chart [nameDevice]="sensor.name" [values]="sensor.values" [deviceId]="sensor.id"
+    [dates]="sensor.dates" position="{{i}}" [potId]="pot.id"></app-chart>
+</div>
