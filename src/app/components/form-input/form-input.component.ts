@@ -27,6 +27,11 @@ export class FormInputComponent implements OnInit {
       this.controlForm = new FormGroup({
         content: new FormControl('', [Validators.required, Validators.minLength(8)])
       });
+    } 
+    if (this.tipo === 'text') {
+      this.controlForm = new FormGroup({
+        content: new FormControl('', Validators.required)
+      });
     }
   }
 

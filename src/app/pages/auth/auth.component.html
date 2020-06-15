@@ -1,1 +1,43 @@
-<p>auth works!</p>
+<div class="jumbotron background-color-blank" style="margin-top: 2rem; margin-left: 5rem; margin-right: 5rem">
+  <!-- Grid row-->
+  <div class="row py-4 d-flex align-items-center">
+    <!-- Grid column -->
+    <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+      <h1 class="display-3">Bienvenido!</h1>
+      <p class="lead">Nos encanta verte de nuevo.</p>
+    </div>
+    <!-- /Grid column -->
+    <!-- Grid column -->
+    <div class="col-md-6 col-lg-5 text-center text-md-rigth mb-4 mb-md-0">
+      <img src="../../../assets/pot5.png" style="width: 40%;">
+    </div>
+    <!-- /Grid column -->
+  </div>
+  <!-- /Grid row-->
+  <hr class="my-4">
+    <div>
+        <app-form-input
+            [titulo] = "formLogin[0].titulo"
+            [ejemplo] = "formLogin[0].ejemplo"
+            [tipo] = "formLogin[0].tipo"
+            (contenido) = "formLogin[0].contenido=$event"
+            (valido)="formLogin[0].valido=$event">
+        </app-form-input>
+        <app-form-input
+            [titulo] = "formLogin[1].titulo"
+            [ejemplo] = "formLogin[1].ejemplo"
+            [tipo] = "formLogin[1].tipo"
+            (contenido) = "formLogin[1].contenido=$event"
+            (valido)="formLogin[1].valido=$event">
+        </app-form-input>
+        <br>
+        <p class="lead text-center">
+            <button class="btn btn-success btn-lg" type="submit" (click)="ingresar()">Ingresar</button>
+        </p>
+    </div>
+    <br>
+    <p class="lead">¿Eres nuevo? Registrate gratis!.</p>
+    <p class="lead">
+        <a class="btn btn-success btn-lg" [routerLink]="['signup']" role="button">Registrarse</a>
+    </p>
+</div>
