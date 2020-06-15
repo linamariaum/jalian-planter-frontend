@@ -1,3 +1,7 @@
 export class OptionItem {
-    value: string;
+  titulo: string;
+  ejemplo: string;
+  tipo: string;
+  contenido: string;
+  valido: boolean;
 }
