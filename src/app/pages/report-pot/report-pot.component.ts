@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StompService } from "@stomp/ng2-stompjs";
-
-import {Message} from '@stomp/stompjs';
-import {Observable, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import { Router, ActivatedRoute } from '@angular/router';
 import { PotServiceService } from 'src/app/services/pot-service.service';
 import { FormatSensorValuesService } from 'src/app/services/format-sensor-values.service';
@@ -15,15 +12,12 @@ import { FormatSensorValuesService } from 'src/app/services/format-sensor-values
 })
 export class ReportPotComponent implements OnInit {
 
-  messages: Observable<Message>;
-  subscription: Subscription;
   sensorValues: Array<any> = []
   params: Subscription;
   pot: any = {};
   data :any;
 
   constructor(
-    private stompService: StompService,
     private route: ActivatedRoute,
     private router: Router,
     private potService: PotServiceService,
@@ -36,51 +30,31 @@ export class ReportPotComponent implements OnInit {
 
       if (potId) {
 
-        //Traer la información de la plnata
+        //Traer la información de la planta
         this.potService.getPodByid(potId).subscribe(data => {
           this.pot = data;
 
+          //Tomar todos los mensajes enviados por un sensor
           this.potService.getMessagesOfAPot(potId).subscribe(data => {
             // Cada sensor separado en un vector
             this.sensorValues = this.formatValuesService.formatSensorData(data);
           });
 
         }, err => {
-          alert("No existe la matera");
+          alert("No existe la matera con ese identificador");
+          //Devolver a la lista por ruta directa
         });
-
-        //Esto lo hace cada sensor
-        const topic = `/topic/pot_${potId}`;
-        this.messages = this.stompService.subscribe(topic);
-        this.subscription = this.messages.subscribe(this.on_message);
       }
       else {
         alert("No hay id");
       }
     }, err => {
-      alert("Redirija");
+      alert("Problemas con la suscripción");
     });
   }
 
-  //Cada sensor se subscribe
-  public on_message = (message: Message) => {
-    const body = message.body;
-    let data = body.split(":");
- 
-    for (let sensor of this.sensorValues) {
-      if (sensor.id == data[0]) {
-        sensor.values.push(Number(data[1]));
-        sensor.dates.push("Otra fecha");
-        break;
-      } 
-    }
-  }
-
   ngOnDestroy(): void {
-    this.stompService.disconnect();
-    this.subscription.unsubscribe();
     this.params.unsubscribe();
-
   }
 
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Chart } from 'chart.js';
 
+import { StompService } from "@stomp/ng2-stompjs";
+import {Message} from '@stomp/stompjs';
+import {Observable, Subscription} from "rxjs";
+
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -19,17 +23,28 @@ export class ChartComponent implements OnInit {
 
   @Input()
   dates: [];
+
+  @Input()
+  potId: number;
+
+  @Input()
+  deviceId: number;
  
   public chart: any = null;
+  messages: Observable<Message>;
+  subscription: Subscription;
 
-  constructor() { }
+  constructor(private stompService: StompService,) { }
 
   ngOnInit(): void {
-    
+
+    const topic = `/topic/pot_${this.potId}`;
+    this.messages = this.stompService.subscribe(topic);
+    this.subscription = this.messages.subscribe(this.onMessage);
   }
 
   ngAfterViewInit(): void {
-    this.showData();
+    setTimeout(_ => {this.showData()});
   }
 
   showData() {
@@ -79,35 +94,45 @@ export class ChartComponent implements OnInit {
   setInitialData(){
     this.chart.data.labels = this.dates.map(date => {
       let formatDate: string = date;
-      return formatDate.split("T")[0]
+      return formatDate.split("T")[1].split(".")[0];
     });
 
     this.chart.data.datasets[0].data= this.values;
     this.chart.update();
   }
 
-  onMessage(message){
+  public onMessage = (message: Message) => {
+    const body = message.body;
+    let data = body.split(":");
+    this.verifyIncomingData(data[0], data[1]);
+  }
+
+  verifyIncomingData(deviceId, value) {
+    const deviceIdNumber = Number(deviceId);
+    const valueNumber = Number(value);
+
+    if (deviceIdNumber === this.deviceId) {
+      this.insertData(valueNumber);
+    }
+  }
+
+  insertData(value){
     let chartTime: any = new Date();
-    chartTime = chartTime.getHours() + ':' + ((chartTime.getMinutes() < 10) ? '0' + chartTime.getMinutes() : chartTime.getMinutes()) + ':' + ((chartTime.getSeconds() < 10) ? '0' + chartTime.getSeconds() : chartTime.getSeconds());
-    const valorDecMessage = 25;
+    chartTime = chartTime.getHours() + ':' + ((chartTime.getMinutes() < 10) ? '0' + chartTime.getMinutes() : chartTime.getMinutes()) +
+     ':' + ((chartTime.getSeconds() < 10) ? '0' + chartTime.getSeconds() : chartTime.getSeconds());
+    
     if (this.chart.data.labels.length > 15) {
       this.chart.data.labels.shift();
       this.chart.data.datasets[0].data.shift();
     }
     this.chart.data.labels.push(chartTime); //Eje X, el 
-    this.chart.data.datasets[0].data.push(valorDecMessage);//cada vez que llegue un mensaje de la suscripcion
+    this.chart.data.datasets[0].data.push(value);//cada vez que llegue un mensaje de la suscripcion
     this.chart.update();
     
   }
 
-  randomId(length) {
-    var result = '';
-    var characters = 'abcdefghijklmnopqrstuvwxyz';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
- }
-
+  ngOnDestroy(): void {
+    this.stompService.disconnect();
+    this.subscription.unsubscribe();
+  }
 }
