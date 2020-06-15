@@ -19,21 +19,21 @@ export class ChartComponent implements OnInit {
 
   @Input()
   dates: [];
-  id : any;
+ 
   public chart: any = null;
 
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+
+  ngAfterViewInit(): void {
     this.showData();
   }
 
   showData() {
-    console.log(this.randomId(3));
-    console.log(typeof this.randomId(3));
-    this.id = 'hola';
-    console.log(typeof this.id)
-    this.chart = new Chart(this.id, {
+    this.chart = new Chart(this.position, {
       type: 'line',
       data: {
         labels: [],
