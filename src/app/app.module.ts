@@ -31,6 +31,7 @@ const stompConfig: StompConfig = {
   reconnect_delay: 60000,
   debug: true
 }
+import { NavComponent } from './components/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ const stompConfig: StompConfig = {
     ReportPotComponent,
     FormInputComponent,
     FormSelectComponent,
-    ChartComponent
+    ChartComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
