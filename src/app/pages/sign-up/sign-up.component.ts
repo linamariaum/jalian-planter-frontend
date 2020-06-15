@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
+import { OptionItem } from 'src/app/models/optionItem';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,7 +9,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  formSignUp = [{
+  formSignUp: OptionItem[] = [{
       titulo: 'Nombre',
       ejemplo: 'Rodolfo Gómez',
       tipo: 'text',

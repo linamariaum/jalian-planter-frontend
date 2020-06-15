@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OptionItem } from 'src/app/models/optionItem';
 
 @Component({
   selector: 'app-auth',
@@ -7,13 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  formLogin = [{
+  formLogin: OptionItem[] = [{
       titulo: 'Correo electónico',
       ejemplo: 'username@email.com',
       tipo: 'email',
       contenido: '',
       valido: false
-    }, 
+    },
     {
       titulo: 'Contraseña',
       ejemplo: '',
