@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
   { path: 'pots', component: ListPotsComponent },
   { path: 'pot/:id', component: PotComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile/:id', component: ProfileComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

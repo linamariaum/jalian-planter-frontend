@@ -8,40 +8,19 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
 
+  userId: string;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('id');
   }
-
-  d () {
-    this.router.navigate(['/evaluaciones_CorNotas']);
+  
+  logout() {
+    localStorage.removeItem('id');
+    localStorage.removeItem('name');
+    localStorage.removeItem('role');
+    //this.router.navigate['/'];
   }
 
 }
-
-//*  Enviar parametros a una ruta  *//
-// this.router.navigate(['/evaluaciones_CorNotas',
-//       { docente: this.gruposConCorreciones[id].docDocente,
-//         nombre: this.gruposConCorreciones[id].nombreDocente,
-//         semestre: this.gruposConCorreciones[id].semestre,
-//         materia: this.gruposConCorreciones[id].codMateria,
-//         apocope: this.gruposConCorreciones[id].apocope,
-//         grupo: this.gruposConCorreciones[id].grupo
-//     }]);
-
-// *   Recibir parametros  * //
-// this.route.paramMap.subscribe(params => {
-//   this.docente = params.get('docente');
-//   this.nombreDocente = params.get('nombre');
-//   this.semestre = params.get('semestre');
-//   this.materia = params.get('materia');
-//   this.apocope = params.get('apocope');
-//   this.grupo = params.get('grupo');
-//   if (this.docente !== null && this.nombreDocente !== '' && this.semestre !== null &&
-//   this.materia !== '' && this.apocope !== '' && this.grupo !== '') {
-//     this.buscar();
-//   } else {
-//     this.router.navigate(['parametros_invalidos']);
-//     return;
-//   }
-// });
