@@ -1,41 +1,54 @@
 <div style="margin-top: 2rem; margin-left: 5rem; margin-right: 5rem;">
-
-    <!-- Inicio -->
+  <!-- Inicio -->
   <div>
     <div class="container">
       <!-- Grid row-->
       <div class="row py-4 d-flex align-items-center">
-
         <!-- Grid column -->
         <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-            <h1 class="display-4 lead">{{ pot.name }}</h1>
-            <h3>El tipo de su planta es {{ pot.type }}</h3>
+          <h1 class="display-4 lead">{{ pot.name }}</h1>
+          <h3>El tipo de su planta es {{ pot.type }}</h3>
         </div>
         <!-- /Grid column -->
 
         <!-- Grid column -->
         <div class="col-md-6 col-lg-7 text-center text-md-right">
-            <br>
-            <p align="end" class="lead">Desde aquí podrás actualizar el nombre de tu matera o Regarla ¿Qué esperas?</p>
-            <button class="btn btn-success btn-lg" (click)="updatePot()" >Cambiar nombre</button>
-            <button class="btn btn-success btn-lg" (click)="regarMatera()" style="margin-left: 5px;">Regar matera</button>
+          <br />
+          <p align="end" class="lead">
+            Desde aquí podrás actualizar el nombre de tu matera o Regarla ¿Qué
+            esperas?
+          </p>
+          <button class="btn btn-success btn-lg" (click)="updatePot()">
+            Cambiar nombre
+          </button>
+          <button
+            class="btn btn-success btn-lg"
+            (click)="regarMatera()"
+            style="margin-left: 5px;"
+          >
+            Regar matera
+          </button>
         </div>
         <!-- /Grid column -->
       </div>
       <!-- /Grid row-->
-      <hr class="my-4">
+      <hr class="my-4" />
     </div>
-</div>
-<!-- /Inicio -->
+  </div>
+  <!-- /Inicio -->
   
-  <div *ngFor="let sensor of sensorValues; let i = index">
-    <app-chart
-      [nameDevice]="sensor.name"
-      [values]="sensor.values"
-      [deviceId]="sensor.id"
-      [dates]="sensor.dates"
-      position="{{ i }}"
-      [potId]="pot.id"
-    ></app-chart>
+  <div class="container">
+    <div class="row">
+      <div class="col-6" *ngFor="let sensor of sensorValues; let i = index">
+        <app-chart
+          [nameDevice]="sensor.name"
+          [values]="sensor.values"
+          [deviceId]="sensor.id"
+          [dates]="sensor.dates"
+          position="{{ i }}"
+          [potId]="pot.id"
+        ></app-chart>
+      </div>
+    </div>
   </div>
 </div>

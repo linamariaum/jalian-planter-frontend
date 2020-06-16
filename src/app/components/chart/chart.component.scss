@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400");
+@import "../../../styles.scss";
 .card {
-  width: 50%;
+  //min-width: 457px;
   display: block;
   background-color: #1b4b36;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
-  min-height: 450px;
   border-radius: 5px;
   margin-bottom: 1rem;
   border: none;
@@ -13,8 +13,9 @@
   color: #0a0a0a;
 }
 .card-content {
-  background: #fff;
-  border-top: solid 1px #cdcdcd;
+  background: $green-ligth;
+  color: white;
+  text-align: center;
   padding: 5px 20px;
 }
 .card h3,
