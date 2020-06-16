@@ -1,1 +1,46 @@
-<p>profile works!</p>
+<div class="jumbotron background-color-blank" style="margin-top: 2rem; margin-left: 5rem; margin-right: 5rem">
+  <!-- Grid row-->
+   <div class="row py-4 d-flex align-items-center">
+     <!-- Grid column -->
+     <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+       <h1 class="display-3">{{user.name}}</h1>
+       <p class="lead">¿Qué cambios deseas realizar?.</p>
+     </div>
+     <!-- /Grid column -->
+     <!-- Grid column -->
+     <div class="col-md-6 col-lg-5 text-center text-md-rigth mb-4 mb-md-0">
+       <img src="../../../assets/pot6.png" style="width: 40%;">
+     </div>
+     <!-- /Grid column -->
+   </div>
+   <!-- /Grid row-->
+   <hr class="my-4">
+   <div>
+       <app-form-input
+           [titulo] = "formEdit[0].titulo"
+           [ejemplo] = "formEdit[0].ejemplo"
+           [tipo] = "formEdit[0].tipo"
+           (contenido) = "formEdit[0].contenido=$event"
+           (valido)="formEdit[0].valido=$event">
+       </app-form-input>
+       <app-form-input
+           [titulo] = "formEdit[1].titulo"
+           [ejemplo] = "formEdit[1].ejemplo"
+           [tipo] = "formEdit[1].tipo"
+           (contenido) = "formEdit[1].contenido=$event"
+           (valido)="formEdit[1].valido=$event">
+       </app-form-input>
+       <app-form-input
+           [titulo] = "formEdit[2].titulo"
+           [ejemplo] = "formEdit[2].ejemplo"
+           [tipo] = "formEdit[2].tipo"
+           (contenido) = "formEdit[2].contenido=$event"
+           (valido)="formEdit[2].valido=$event">
+       </app-form-input>
+       <br>
+       <p class="lead text-center">
+           <a class="btn btn-success btn-lg" (click)="guardar()" role="button" style="color: ivory;">Guardar cambios</a>
+       </p>
+   </div>
+</div>
+

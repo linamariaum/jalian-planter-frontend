@@ -44,7 +44,8 @@ export class AuthComponent implements OnInit {
         localStorage.setItem('role', user.role.toString());
         localStorage.setItem('name', user.name);
         localStorage.setItem('id', user.id.toString());
-        this.router.navigate(['pots']);
+        //this.router.navigate(['pots']);
+        this.router.navigateByUrl('/pots');
         // Guardar info en local storge
       }, err => {
         if (err.status === 0) {

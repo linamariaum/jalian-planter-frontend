@@ -5,15 +5,18 @@ import { ReportPotComponent } from './pages/report-pot/report-pot.component'
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PotComponent } from './pages/pot/pot.component';
 import { ListPotsComponent } from './pages/list-pots/list-pots.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 const routes: Routes = [
-  { path: '', component: AuthComponent },
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: 'login', component: AuthComponent },
   { path: 'report/:id', component: ReportPotComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'pots', component: ListPotsComponent },
   { path: 'pot/:id', component: PotComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: 'profile/:id', component: ProfileComponent },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
