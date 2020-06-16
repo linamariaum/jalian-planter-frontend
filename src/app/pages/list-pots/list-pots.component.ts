@@ -9,7 +9,19 @@ import { PotServiceService } from 'src/app/services/pot-service.service';
   styleUrls: ['./list-pots.component.scss']
 })
 export class ListPotsComponent implements OnInit {
-  pots2: Pot[]
+
+  colorsBackground: Array<string> = [
+    'background-green-dark',
+    'background-green-ligth',
+    'background-green-cake',
+    'bg-dark'];
+  clase = [
+    `card text-white ${this.colorsBackground[0]}`,
+    `card text-white ${this.colorsBackground[1]}`,
+    `card text-white ${this.colorsBackground[2]}`,
+    `card text-white ${this.colorsBackground[3]}`
+  ];
+
   pots: Array<Pot> = [];
   role: number;
 
@@ -18,39 +30,8 @@ export class ListPotsComponent implements OnInit {
    }
 
   async ngOnInit() {
-    const userId = localStorage.getItem('id');
-
-    this.potService.getPodsByUserId(Number(userId)).subscribe(pots => {
-      this.pots = pots;
-      console.log(this.pots);
-    }, err => {
-      this.showErrorMesage(err, 'No tienes macetas asociadas!');
-    });
-
-    this.pots2 = [
-      {
-        id: 11,
-        name: 'Rolfi',
-        type: 'Tipo 3'
-      },
-      {
-        id: 12,
-        name: 'Berta',
-        type: 'Tipo 3'
-      },
-      {
-        id: 13,
-        name: 'Orqui',
-        type: 'Tipo 3'
-      },
-      {
-        id: 14,
-        name: 'Petunia',
-        type: 'Tipo 3'
-      }
-    ]
+    this.getPots();
   }
-
 
   async agregarMatera()
   {
@@ -138,6 +119,7 @@ export class ListPotsComponent implements OnInit {
             `,
             confirmButtonText: 'Estupendo!'
           })
+          this.getPots();
         }, err => {
           this.showErrorMesage(err, 'No se encuentra la maceta con ese identificador');
         })
@@ -176,6 +158,16 @@ export class ListPotsComponent implements OnInit {
     }
   }
 
+  getPots() {
+    const userId = localStorage.getItem('id');
+
+    this.potService.getPodsByUserId(Number(userId)).subscribe(pots => {
+      this.pots = pots;
+      console.log(this.pots);
+    }, err => {
+      this.showErrorMesage(err, 'No tienes macetas asociadas!');
+    });
+  }
   crearMatera() {
     this.potService.createPot().subscribe(pot => {
       Swal.fire({
