@@ -5,6 +5,7 @@ import { ReportPotComponent } from './pages/report-pot/report-pot.component'
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PotComponent } from './pages/pot/pot.component';
 import { ListPotsComponent } from './pages/list-pots/list-pots.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
   { path: 'pots', component: ListPotsComponent },
   { path: 'pot/:id', component: PotComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
