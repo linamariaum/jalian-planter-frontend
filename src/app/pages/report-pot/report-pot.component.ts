@@ -3,6 +3,8 @@ import {Subscription} from "rxjs";
 import { Router, ActivatedRoute } from '@angular/router';
 import { PotServiceService } from 'src/app/services/pot-service.service';
 import { FormatSensorValuesService } from 'src/app/services/format-sensor-values.service';
+import { Pot } from 'src/app/models/pot';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -14,7 +16,11 @@ export class ReportPotComponent implements OnInit {
 
   sensorValues: Array<any> = []
   params: Subscription;
-  pot: any = {};
+  pot: Pot = {
+    id: 0,
+    name: '',
+    type: '',
+  };
   data :any;
 
   constructor(
@@ -41,7 +47,22 @@ export class ReportPotComponent implements OnInit {
           });
 
         }, err => {
-          alert("No existe la matera con ese identificador");
+          if (err.status === 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Ha ocurrido un error con nuestros servidores 😢'
+            })
+
+            console.log("Redirigiendo");
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Oops...',
+              text: 'La maceta con ese identificador no hace parte de tu familia!'
+            })
+          }
+
           //Devolver a la lista por ruta directa
         });
       }

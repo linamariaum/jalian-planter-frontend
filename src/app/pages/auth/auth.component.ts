@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OptionItem } from 'src/app/models/optionItem';
+import { Login } from 'src/app/models/request/login';
+import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auth',
@@ -24,17 +27,41 @@ export class AuthComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   ingresar() {
-    console.log(this.formLogin[0].contenido)
-    console.log(this.formLogin[1].contenido)
     if (this.formLogin[0].valido  && this.formLogin[1].valido)
     {
-      this.router.navigate(['pots']);
+      const loginRequest: Login = {
+        email: this.formLogin[0].contenido,
+        password: this.formLogin[1].contenido
+      }
+
+      this.authService.login(loginRequest).subscribe(user => {
+        localStorage.setItem('role', user.role.toString());
+        localStorage.setItem('name', user.name);
+        localStorage.setItem('id', user.id.toString());
+        this.router.navigate(['pots']);
+        // Guardar info en local storge
+      }, err => {
+        if (err.status === 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ha ocurrido un error con nuestros servidores 😢'
+          })
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Parece que tus credenciales no coinciden!'
+          })
+        }
+      })
+      
     }
   }
 

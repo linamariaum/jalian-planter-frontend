@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { OptionItem } from 'src/app/models/optionItem';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -32,25 +34,51 @@ export class SignUpComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   async registrar() {
-    console.log(this.formSignUp[0].contenido)
-    console.log(this.formSignUp[1].contenido)
-    console.log(this.formSignUp[2].contenido)
+    console.log()
+    console.log()
+    console.log()
     if (this.formSignUp[0].valido  && this.formSignUp[1].valido && this.formSignUp[2].valido)
     {
-      await Swal.fire({
-        icon: 'success',
-        title: 'Registro exitoso!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.router.navigate(['pots']);
+      const userRequest : User = {
+        email: this.formSignUp[1].contenido,
+        name: this.formSignUp[0].contenido,
+        password: this.formSignUp[2].contenido
+      };
+
+      this.authService.registerUser(userRequest).subscribe(user => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Registro exitoso!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        localStorage.setItem('role', user.role.toString());
+        localStorage.setItem('name', user.name);
+        localStorage.setItem('id', user.id.toString());
+        this.router.navigate(['pots']);
+      }, err => {
+        console.log(err);
+        if (err.status === 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ha ocurrido un error con nuestros servidores 😢'
+          })
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Tu correo ya existe en nuestra plataforma!'
+          })
+        }
+      });
     }
   }
-
 }
