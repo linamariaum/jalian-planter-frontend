@@ -8,14 +8,23 @@ import { Pot } from 'src/app/models/pot';
   styleUrls: ['./list-pots.component.scss']
 })
 export class ListPotsComponent implements OnInit {
-  pots2: Pot[]
-  pots: Array<any> = [];
-  message = false;
+  pots2: Array<any> = [];
+  docentes: Array<any> = [];
+  colorsBackground: Array<string> = [
+    'background-green-dark',
+    'background-green-ligth',
+    'background-green-cake',
+    'bg-dark'];
+  clase = [
+    `card text-white ${this.colorsBackground[0]}`,
+    `card text-white ${this.colorsBackground[1]}`,
+    `card text-white ${this.colorsBackground[2]}`,
+    `card text-white ${this.colorsBackground[3]}`
+  ];
 
-  constructor() { }
+  constructor() {}
 
-  async ngOnInit() {
-    await this.prueba()
+  ngOnInit() {
     this.pots2 = [
       {
         id: 11,
@@ -36,47 +45,21 @@ export class ListPotsComponent implements OnInit {
         id: 14,
         name: 'Petunia',
         type: 'Tipo 3'
-      }
-    ]
-  }
-
-  prueba() {
-    this.pots = [
-      {
-        name: 'Nombre',
-        type: 'tipito',
-        hourlyIntensity: '20 horas',
-        description: 'LA LA LA ALAL laslfa la',
-        cost: {
-          udea: '15',
-          general: '18',
-          companies: '22'
-        },
-        link: 'www.github.com'
       },
       {
-        name: 'Nombre',
-        type: 'tipito',
-        hourlyIntensity: '20 horas',
-        description: 'LA LA LA ALAL laslfa la',
-        cost: {
-          udea: '15',
-          general: '18',
-          companies: '22'
-        },
-        link: 'www.github.com'
+        id: 14,
+        name: 'Arnolfo',
+        type: 'Tipo 3'
       },
       {
-        name: 'Nombre',
-        type: 'tipito',
-        hourlyIntensity: '20 horas',
-        description: 'LA LA LA ALAL laslfa la',
-        cost: {
-          udea: '15',
-          general: '18',
-          companies: '22'
-        },
-        link: 'www.github.com'
+        id: 14,
+        name: 'Arnolfo',
+        type: 'Tipo 3'
+      },
+      {
+        id: 14,
+        name: 'Arnolfo',
+        type: 'Tipo 3'
       }
     ]
   }
