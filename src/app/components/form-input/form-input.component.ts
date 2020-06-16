@@ -14,28 +14,47 @@ export class FormInputComponent implements OnInit {
   @Output() valido = new EventEmitter<boolean>();
   value = ''
   controlForm: FormGroup;
-  
+
   constructor() { }
 
   ngOnInit(): void {
-    if (this.tipo === 'email'){
-      this.controlForm = new FormGroup({
-        content: new FormControl('', [Validators.required, Validators.email])
-      });
-    }
-    if (this.tipo === 'password'){
-      this.controlForm = new FormGroup({
-        content: new FormControl('', [Validators.required, Validators.minLength(8)])
-      });
-    } 
-    if (this.tipo === 'text') {
-      this.controlForm = new FormGroup({
-        content: new FormControl('', Validators.required)
-      });
+    let edit = this.titulo.slice(0,4);
+    if (edit === 'Nuev') {
+      if (this.tipo === 'email'){
+        this.controlForm = new FormGroup({
+          content: new FormControl('', Validators.email)
+        });
+      }
+      if (this.tipo === 'password'){
+        this.controlForm = new FormGroup({
+          content: new FormControl('', Validators.minLength(8))
+        });
+      }
+      if (this.tipo === 'text') {
+        this.controlForm = new FormGroup({
+          content: new FormControl('')
+        });
+      }
+    } else {
+      if (this.tipo === 'email'){
+        this.controlForm = new FormGroup({
+          content: new FormControl('', [Validators.required, Validators.email])
+        });
+      }
+      if (this.tipo === 'password'){
+        this.controlForm = new FormGroup({
+          content: new FormControl('', [Validators.required, Validators.minLength(8)])
+        });
+      }
+      if (this.tipo === 'text') {
+        this.controlForm = new FormGroup({
+          content: new FormControl('', Validators.required)
+        });
+      }
     }
   }
 
-  update(value: string) { 
+  update(value: string) {
     this.value = value;
     this.contenido.emit(this.value);
     this.valido.emit(!this.controlForm.invalid)

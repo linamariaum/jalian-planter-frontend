@@ -7,7 +7,7 @@ import { OptionItem } from 'src/app/models/optionItem';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  formSignUp: OptionItem[] = [{
+  formEdit: OptionItem[] = [{
     titulo: 'Nuevo nombre',
     ejemplo: 'user.nombre',
     tipo: 'text',
@@ -36,9 +36,9 @@ export class ProfileComponent implements OnInit {
   }
 
   guardar() {
-    console.log(this.formSignUp[0].contenido)
-    console.log(this.formSignUp[1].contenido)
-    console.log(this.formSignUp[2].contenido)
+    console.log(this.formEdit[0].contenido)
+    console.log(this.formEdit[1].contenido)
+    console.log(this.formEdit[2].contenido)
   }
 
 }
