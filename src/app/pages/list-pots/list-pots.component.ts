@@ -24,7 +24,7 @@ export class ListPotsComponent implements OnInit {
       this.pots = pots;
       console.log(this.pots);
     }, err => {
-      this.showErrorMesage(err, true);
+      this.showErrorMesage(err, 'No tienes macetas asociadas!');
     });
 
     this.pots2 = [
@@ -83,7 +83,7 @@ export class ListPotsComponent implements OnInit {
             if (value !== '') {
               resolve()
             } else {
-              resolve('Cuál será mi nombre? 😟')
+              resolve('¿Cuál será mi nombre? 😟')
             }
           })
         }
@@ -139,7 +139,7 @@ export class ListPotsComponent implements OnInit {
             confirmButtonText: 'Estupendo!'
           })
         }, err => {
-          this.showErrorMesage(err, false);
+          this.showErrorMesage(err, 'No se encuentra la maceta con ese identificador');
         })
       }
       else if (
@@ -160,7 +160,7 @@ export class ListPotsComponent implements OnInit {
     });
   }
 
-  showErrorMesage(error, isList) {
+  showErrorMesage(error, message) {
     if (error.status === 0) {
       Swal.fire({
         icon: 'error',
@@ -168,19 +168,11 @@ export class ListPotsComponent implements OnInit {
         text: 'Ha ocurrido un error con nuestros servidores 😢'
       });
     } else {
-      if (isList) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Oops...',
-          text: 'No se pudo traer la información de las materas!'
-        });
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Oops...',
-          text: 'Parece que no existe el identificador de tu matera!'
-        });
-      }
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: message
+      });
     }
   }
 
@@ -192,7 +184,7 @@ export class ListPotsComponent implements OnInit {
         text: 'Se ha creado la matera con éxito!'
       });
     }, err => {
-      this.showErrorMesage(err, false);
+      this.showErrorMesage(err, 'No se pudo crear una nueva maceta');
     });
   } 
 }
