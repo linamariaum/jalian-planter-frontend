@@ -13,14 +13,26 @@ export class PotServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getPodByid(id): Observable<Pot>
+  public getPodByid(id: number): Observable<Pot>
   {
     const url = `${SERVER_URL}/api/pots/${id}`;
     return this.httpClient.get<Pot>(url);
   }
 
-  public getMessagesOfAPot(id) {
+  public getMessagesOfAPot(id: number) {
     const url = `${SERVER_URL}/api/pots/${id}/messages`;
     return this.httpClient.get(url);
+  }
+
+  public createPot(): Observable<Pot> {
+    const url = `${SERVER_URL}/api/pots/`;
+    
+    return this.httpClient.post<Pot>(url, {});
+  }
+
+  public updatePotById(id: number, pot: Pot): Observable<Pot> {
+    const url = `${SERVER_URL}/api/pots/${id}`;
+
+    return this.httpClient.put<Pot>(url, pot);
   }
 }

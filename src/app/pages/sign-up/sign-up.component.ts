@@ -64,7 +64,7 @@ export class SignUpComponent implements OnInit {
         localStorage.setItem('id', user.id.toString());
         this.router.navigate(['pots']);
       }, err => {
-        console.log(err);
+
         if (err.status === 0) {
           Swal.fire({
             icon: 'error',

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Pot } from 'src/app/models/pot';
+import { PotServiceService } from 'src/app/services/pot-service.service';
 
 @Component({
   selector: 'app-list-pots',
@@ -10,12 +11,10 @@ import { Pot } from 'src/app/models/pot';
 export class ListPotsComponent implements OnInit {
   pots2: Pot[]
   pots: Array<any> = [];
-  message = false;
 
-  constructor() { }
+  constructor(private potService: PotServiceService) { }
 
   async ngOnInit() {
-    await this.prueba()
     this.pots2 = [
       {
         id: 11,
@@ -40,46 +39,6 @@ export class ListPotsComponent implements OnInit {
     ]
   }
 
-  prueba() {
-    this.pots = [
-      {
-        name: 'Nombre',
-        type: 'tipito',
-        hourlyIntensity: '20 horas',
-        description: 'LA LA LA ALAL laslfa la',
-        cost: {
-          udea: '15',
-          general: '18',
-          companies: '22'
-        },
-        link: 'www.github.com'
-      },
-      {
-        name: 'Nombre',
-        type: 'tipito',
-        hourlyIntensity: '20 horas',
-        description: 'LA LA LA ALAL laslfa la',
-        cost: {
-          udea: '15',
-          general: '18',
-          companies: '22'
-        },
-        link: 'www.github.com'
-      },
-      {
-        name: 'Nombre',
-        type: 'tipito',
-        hourlyIntensity: '20 horas',
-        description: 'LA LA LA ALAL laslfa la',
-        cost: {
-          udea: '15',
-          general: '18',
-          companies: '22'
-        },
-        link: 'www.github.com'
-      }
-    ]
-  }
 
   async agregarMatera()
   {
@@ -96,6 +55,7 @@ export class ListPotsComponent implements OnInit {
         inputValidator: (value) => {
           return new Promise((resolve) => {
             if (value !== '' && value > '0') {
+              //Llamado a un método asincrono
               resolve()
             } else {
               resolve('El código lo encuentras en mi maceta. Por favor, búscalo. 🙄')
@@ -146,20 +106,41 @@ export class ListPotsComponent implements OnInit {
         potNew = {
           id: result.value[0],
           name: result.value[1],
-          type: result.value[2]
+          type: result.value[2],
+          user: {
+            id: Number(localStorage.getItem('id'))
+          }
         }
-        Swal.fire({
-          title: 'Agregado con éxito!',
-          html: `
-            <br>
-            El nuevo integrante es:
-            <p></p>
-            <h3><strong>${potNew.name}</strong></h3>
-            <p>Código: ${potNew.id}</p>
-            <p>Tipo de planta: ${potNew.type}</p>
-            <p>🎉🎉🎉🎉🎉🎉🎉🎉🎉</p>
-          `,
-          confirmButtonText: 'Estupendo!'
+
+        this.potService.updatePotById(potNew.id, potNew).subscribe(pot => {
+          Swal.fire({
+            title: 'Agregado con éxito!',
+            html: `
+              <br>
+              El nuevo integrante es:
+              <p></p>
+              <h3><strong>${potNew.name}</strong></h3>
+              <p>Código: ${potNew.id}</p>
+              <p>Tipo de planta: ${potNew.type}</p>
+              <p>🎉🎉🎉🎉🎉🎉🎉🎉🎉</p>
+            `,
+            confirmButtonText: 'Estupendo!'
+          })
+        }, err => {
+          if (err.status === 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Ha ocurrido un error con nuestros servidores 😢'
+            });
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Oops...',
+              text: 'Parece que no existe el identificador de tu maceta!'
+            });
+          }
+
         })
       }
       else if (
@@ -181,6 +162,19 @@ export class ListPotsComponent implements OnInit {
 
     console.log(potNew)
 
+  }
+
+  async getPotInfoById(id: number): Promise<boolean> {
+
+    let result = false;
+
+    await this.potService.getPodByid(id).subscribe(pot => {
+      return true;
+    }, err => {
+      return false;
+    });
+
+    return result;
   }
 
 }
