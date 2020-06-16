@@ -19,6 +19,7 @@
               <br>
               <p align="end" class="lead">Desde aquí podrás agregar una nueva matera a la familia. ¿Qué esperas?</p>
               <button class="btn btn-success btn-lg" (click)="agregarMatera()">Agregar matera</button>
+              <button *ngIf="role == 1" class="btn btn-success btn-lg" (click)="crearMatera()" style="margin-left: 5px;">Crear matera</button>
           </div>
           <!-- /Grid column -->
         </div>
@@ -29,59 +30,20 @@
   <!-- /Inicio -->
   <!-- Cards -->
   <div>
-    <!-- <h3 class="title">Familia</h3> -->
-    <h6 *ngIf="message">No se pudo acceder a la base de datos.</h6>
+    <h3 class="title">Tu familia</h3>
     <div class="row justify-content-center">
-        <div *ngFor="let pot of pots" class="card pot-card">
-            <div class="pot-card__name">
-                <span class="">{{pot.name}}</span>
+      <div *ngFor="let pot of pots; let i=index" class="pot-card">
+        <a role="button" [routerLink]="['/report', pot.id]" style="text-decoration:none">
+          <div [class]="clase[i%4]">
+            <div class="card-body">
+              <h4 class="card-title pot-card__info">{{pot.name}}</h4>
+              <p class="card-text pot-card__info">Esta matera es de tipo:</p>
+              <p>{{pot.type}}</p>
             </div>
-            <div class="pot-card__info">
-                <div class="pot-card__title">{{pot.type}}</div>
-                <div class="pot-card__more-info"><i class="far fa-clock"></i><b> Intensidad:
-                    </b>{{pot.hourlyIntensity}} horas</div>
-                <div class="pot-card__more-info"><i class="fa fa-info-circle"></i><b> Descripción:
-                    </b>{{pot.description}}</div>
-                <div class="pot-card__more-info"><i class="fas fa-hand-holding-usd"></i><b> Costo:
-                    </b>
-                    <div class="pot-card__tab">UdeA: {{pot.cost.udea}}</div>
-                    <div class="pot-card__tab">General: {{pot.cost.general}}</div>
-                    <div class="pot-card__tab">Compañías: {{pot.cost.companies}}</div>
-                </div>
-                <div class="pot-card__more-info"><i class="fas fa-link"></i><a
-                        [href]="pot.link" target="_blank"> Click para más información</a></div>
-            </div>
-        </div>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
   <!-- Cards -->
-
-
-  <!-- Otas-->
-  <div class="card text-white mb-3 background-green-ligth" style="max-width: 20rem;">
-    <div class="card-header">Activa</div>
-    <div class="card-body">
-      <h4 class="card-title">{{pots[1].name}}</h4>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-  </div>
-
-  <div class="card text-white mb-3 background-green-cake" style="max-width: 20rem;">
-    <div class="card-header">Activa</div>
-    <div class="card-body">
-      <h4 class="card-title">{{pots[2].name}}</h4>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-  </div>
-
-  <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
-    <div class="card-header">Activa</div>
-    <div class="card-body">
-      <h4 class="card-title">{{pots[3].name}}</h4>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-  </div>
-
-
-
 </div>

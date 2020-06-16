@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Pot } from 'src/app/models/pot';
+import { PotServiceService } from 'src/app/services/pot-service.service';
 
 @Component({
   selector: 'app-list-pots',
@@ -8,77 +9,28 @@ import { Pot } from 'src/app/models/pot';
   styleUrls: ['./list-pots.component.scss']
 })
 export class ListPotsComponent implements OnInit {
-  pots2: Pot[]
-  pots: Array<any> = [];
-  message = false;
 
-  constructor() { }
+  colorsBackground: Array<string> = [
+    'background-green-dark',
+    'background-green-ligth',
+    'background-green-cake',
+    'bg-dark'];
+  clase = [
+    `card text-white ${this.colorsBackground[0]}`,
+    `card text-white ${this.colorsBackground[1]}`,
+    `card text-white ${this.colorsBackground[2]}`,
+    `card text-white ${this.colorsBackground[3]}`
+  ];
+
+  pots: Array<Pot> = [];
+  role: number;
+
+  constructor(private potService: PotServiceService) {
+    this.role = Number(localStorage.getItem('role'));
+   }
 
   async ngOnInit() {
-    await this.prueba()
-    this.pots2 = [
-      {
-        id: 11,
-        name: 'Rolfi',
-        type: 'Tipo 3'
-      },
-      {
-        id: 12,
-        name: 'Berta',
-        type: 'Tipo 3'
-      },
-      {
-        id: 13,
-        name: 'Orqui',
-        type: 'Tipo 3'
-      },
-      {
-        id: 14,
-        name: 'Petunia',
-        type: 'Tipo 3'
-      }
-    ]
-  }
-
-  prueba() {
-    this.pots = [
-      {
-        name: 'Nombre',
-        type: 'tipito',
-        hourlyIntensity: '20 horas',
-        description: 'LA LA LA ALAL laslfa la',
-        cost: {
-          udea: '15',
-          general: '18',
-          companies: '22'
-        },
-        link: 'www.github.com'
-      },
-      {
-        name: 'Nombre',
-        type: 'tipito',
-        hourlyIntensity: '20 horas',
-        description: 'LA LA LA ALAL laslfa la',
-        cost: {
-          udea: '15',
-          general: '18',
-          companies: '22'
-        },
-        link: 'www.github.com'
-      },
-      {
-        name: 'Nombre',
-        type: 'tipito',
-        hourlyIntensity: '20 horas',
-        description: 'LA LA LA ALAL laslfa la',
-        cost: {
-          udea: '15',
-          general: '18',
-          companies: '22'
-        },
-        link: 'www.github.com'
-      }
-    ]
+    this.getPots();
   }
 
   async agregarMatera()
@@ -112,7 +64,7 @@ export class ListPotsComponent implements OnInit {
             if (value !== '') {
               resolve()
             } else {
-              resolve('Cuál será mi nombre? 😟')
+              resolve('¿Cuál será mi nombre? 😟')
             }
           })
         }
@@ -122,17 +74,18 @@ export class ListPotsComponent implements OnInit {
         input: 'select',
         inputOptions: {
           'Tipo de planta': {
-            tipo1: 'Tipo 1',
-            tipo2: 'Tipo 2',
-            tipo3: 'Tipo 3',
-            tipo4: 'Tipo 4',
-            tipo5: 'Tipo 5'
+            Cactus: 'Cactus',
+            Dracena: 'Dracena',
+            Potos: 'Potos',
+            Aspidistra: 'Aspidistra',
+            Sansevieria: 'Sansevieria'
           }
         },
         inputPlaceholder: 'Selecciona',
         inputValidator: (value) => {
           return new Promise((resolve) => {
-            if (value === 'tipo1' || value === 'tipo2' || value === 'tipo3' || value === 'tipo4' || value === 'tipo5') {
+            if (value === 'Cactus' || value === 'Dracena' || value === 'Potos' 
+            || value === 'Aspidistra' || value === 'Sansevieria') {
               resolve()
             } else {
               resolve('Debes elegir una opción 🙈🙈')
@@ -146,20 +99,29 @@ export class ListPotsComponent implements OnInit {
         potNew = {
           id: result.value[0],
           name: result.value[1],
-          type: result.value[2]
+          type: result.value[2],
+          user: {
+            id: Number(localStorage.getItem('id'))
+          }
         }
-        Swal.fire({
-          title: 'Agregado con éxito!',
-          html: `
-            <br>
-            El nuevo integrante es:
-            <p></p>
-            <h3><strong>${potNew.name}</strong></h3>
-            <p>Código: ${potNew.id}</p>
-            <p>Tipo de planta: ${potNew.type}</p>
-            <p>🎉🎉🎉🎉🎉🎉🎉🎉🎉</p>
-          `,
-          confirmButtonText: 'Estupendo!'
+
+        this.potService.updatePotById(potNew.id, potNew).subscribe(pot => {
+          Swal.fire({
+            title: 'Agregado con éxito!',
+            html: `
+              <br>
+              El nuevo integrante es:
+              <p></p>
+              <h3><strong>${potNew.name}</strong></h3>
+              <p>Código: ${potNew.id}</p>
+              <p>Tipo de planta: ${potNew.type}</p>
+              <p>🎉🎉🎉🎉🎉🎉🎉🎉🎉</p>
+            `,
+            confirmButtonText: 'Estupendo!'
+          })
+          this.getPots();
+        }, err => {
+          this.showErrorMesage(err, 'No se encuentra la maceta con ese identificador');
         })
       }
       else if (
@@ -178,9 +140,43 @@ export class ListPotsComponent implements OnInit {
         })
       }
     });
-
-    console.log(potNew)
-
   }
 
+  showErrorMesage(error, message) {
+    if (error.status === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ha ocurrido un error con nuestros servidores 😢'
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: message
+      });
+    }
+  }
+
+  getPots() {
+    const userId = localStorage.getItem('id');
+
+    this.potService.getPodsByUserId(Number(userId)).subscribe(pots => {
+      this.pots = pots;
+      console.log(this.pots);
+    }, err => {
+      this.showErrorMesage(err, 'No tienes macetas asociadas!');
+    });
+  }
+  crearMatera() {
+    this.potService.createPot().subscribe(pot => {
+      Swal.fire({
+        icon: 'info',
+        title: 'Genial!',
+        text: 'Se ha creado la matera con éxito!'
+      });
+    }, err => {
+      this.showErrorMesage(err, 'No se pudo crear una nueva maceta');
+    });
+  } 
 }

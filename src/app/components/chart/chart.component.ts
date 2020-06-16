@@ -54,7 +54,7 @@ export class ChartComponent implements OnInit {
         labels: [],
         datasets: [
           {
-            label: 'Data',
+            label: 'Valor sensado',
             fill: false,
             data: [],
             backgroundColor: '#538f6a',
