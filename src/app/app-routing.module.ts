@@ -9,7 +9,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'pots', pathMatch: 'full'},
   { path: 'login', component: AuthComponent },
   { path: 'report/:id', component: ReportPotComponent },
   { path: 'signup', component: SignUpComponent },

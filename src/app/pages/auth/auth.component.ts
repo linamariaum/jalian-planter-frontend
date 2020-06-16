@@ -30,6 +30,9 @@ export class AuthComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('id')) {
+      this.router.navigateByUrl('/pots');
+    }
   }
 
   ingresar() {

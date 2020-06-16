@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Pot } from 'src/app/models/pot';
 import { PotServiceService } from 'src/app/services/pot-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-pots',
@@ -25,12 +26,19 @@ export class ListPotsComponent implements OnInit {
   pots: Array<Pot> = [];
   role: number;
 
-  constructor(private potService: PotServiceService) {
+  constructor(private potService: PotServiceService, private router: Router) {
     this.role = Number(localStorage.getItem('role'));
    }
 
   async ngOnInit() {
-    this.getPots();
+    const userId = localStorage.getItem('id');
+
+    if (!userId) {
+      this.router.navigateByUrl('/login');
+    }else {
+      this.getPots();
+    }
+    
   }
 
   async agregarMatera()
