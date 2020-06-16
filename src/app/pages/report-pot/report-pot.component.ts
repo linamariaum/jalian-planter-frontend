@@ -163,6 +163,20 @@ export class ReportPotComponent implements OnInit {
     );
   }
 
+  showTip() {
+    const size = this.tips.length;
+
+    const random = Math.floor(Math.random() * size);
+
+    const tip = this.tips[random %  size];
+    
+    Swal.fire({
+      icon: 'info',
+      title: 'Ten presente!',
+      text: tip.message,
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.params) {
       this.params.unsubscribe();

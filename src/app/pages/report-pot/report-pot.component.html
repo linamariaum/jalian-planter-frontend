@@ -20,7 +20,7 @@
         <div class="col-md-6 col-lg-7 text-center text-md-right">
           <br />
           <p align="end" class="lead">
-            Desde aquí podrás actualizar el nombre de tu matera o Regarla ¿Qué
+            Aquí podrás actualizar el nombre de tu matera, regarla o ver un consejo ¿Qué
             esperas?
           </p>
           <button class="btn btn-success btn-lg" (click)="updatePot()">
@@ -32,6 +32,12 @@
             style="margin: 5px;"
           >
             Regar matera
+          </button>
+          <button
+            class="btn btn-success btn-lg"
+            (click)="showTip()"
+          >
+            Mostrar un consejo
           </button>
         </div>
         <!-- /Grid column -->
