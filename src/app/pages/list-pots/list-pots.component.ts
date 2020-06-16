@@ -171,7 +171,7 @@ export class ListPotsComponent implements OnInit {
   crearMatera() {
     this.potService.createPot().subscribe(pot => {
       Swal.fire({
-        icon: 'info',
+        icon: 'success',
         title: 'Genial!',
         text: 'Se ha creado la matera con éxito!'
       });

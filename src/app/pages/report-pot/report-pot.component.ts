@@ -7,6 +7,8 @@ import { Pot } from 'src/app/models/pot';
 import Swal from 'sweetalert2';
 import { Tip } from 'src/app/models/tip';
 import { TipService } from 'src/app/services/tip.service';
+import { DeviceService } from 'src/app/services/device.service';
+import { Send } from 'src/app/models/request/send';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class ReportPotComponent implements OnInit {
   pot: Pot = {
     id: 0,
     name: '',
-    type: '',
+    type: ''
   };
   data :any;
 
@@ -31,7 +33,8 @@ export class ReportPotComponent implements OnInit {
     private router: Router,
     private potService: PotServiceService,
     private formatValuesService: FormatSensorValuesService,
-    private tipService: TipService) { }
+    private tipService: TipService,
+    private deviceService: DeviceService) { }
 
   ngOnInit(): void {
 
@@ -89,8 +92,41 @@ export class ReportPotComponent implements OnInit {
     }
   }
 
+  updatePot() {
+    Swal.fire({
+      title: 'Ingresa mi nuevo nombre',
+      input: 'text',
+      inputPlaceholder: 'Mi nombre',
+      inputValue: this.pot.name
+    }).then(value => {
+      this.pot.name = String(value.value);
+      this.potService.updatePotById(this.pot.id, this.pot).subscribe(data => {
+        this.pot = data;
+        Swal.fire({
+          icon: 'success',
+          title: 'Genial',
+          text: 'Gracias por mi nuevo nombre!'
+        })
+      }, err => {
+        this.showErrorMessage(err, 'No pudimos cambiar el nombre de tu amiga');
+      })
+    }) 
+  }
+  
   regarMatera() {
-    console.log("Me estan regando");
+    const sendRequest: Send = {
+      potId: this.pot.id,
+      value: 1
+    };
+    this.deviceService.sendMessage(1004, sendRequest).subscribe(data => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial',
+        text: 'Tu matera ahora está mas fresca!'
+      })
+    }, err => {
+      this.showErrorMessage(err, 'No se pudo regar tu matera');
+    });
   }
 
   ngOnDestroy(): void {
