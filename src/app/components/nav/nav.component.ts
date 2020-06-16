@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('id');
     localStorage.removeItem('name');
     localStorage.removeItem('role');
-    //this.router.navigate['/'];
+    //this.router.navigate['/login'];
   }
 
 }
