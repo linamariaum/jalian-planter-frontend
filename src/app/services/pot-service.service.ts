@@ -24,9 +24,13 @@ export class PotServiceService {
     return this.httpClient.get(url);
   }
 
+  public getPodsByUserId(userId: number): Observable<Array<Pot>> {
+    const url = `${SERVER_URL}/api/pots/user/${userId}`;
+    return this.httpClient.get<Array<Pot>>(url);
+  }
+
   public createPot(): Observable<Pot> {
     const url = `${SERVER_URL}/api/pots/`;
-    
     return this.httpClient.post<Pot>(url, {});
   }
 

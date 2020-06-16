@@ -10,11 +10,23 @@ import { PotServiceService } from 'src/app/services/pot-service.service';
 })
 export class ListPotsComponent implements OnInit {
   pots2: Pot[]
-  pots: Array<any> = [];
+  pots: Array<Pot> = [];
+  role: number;
 
-  constructor(private potService: PotServiceService) { }
+  constructor(private potService: PotServiceService) {
+    this.role = Number(localStorage.getItem('role'));
+   }
 
   async ngOnInit() {
+    const userId = localStorage.getItem('id');
+
+    this.potService.getPodsByUserId(Number(userId)).subscribe(pots => {
+      this.pots = pots;
+      console.log(this.pots);
+    }, err => {
+      this.showErrorMesage(err, true);
+    });
+
     this.pots2 = [
       {
         id: 11,
@@ -55,7 +67,6 @@ export class ListPotsComponent implements OnInit {
         inputValidator: (value) => {
           return new Promise((resolve) => {
             if (value !== '' && value > '0') {
-              //Llamado a un método asincrono
               resolve()
             } else {
               resolve('El código lo encuentras en mi maceta. Por favor, búscalo. 🙄')
@@ -82,17 +93,18 @@ export class ListPotsComponent implements OnInit {
         input: 'select',
         inputOptions: {
           'Tipo de planta': {
-            tipo1: 'Tipo 1',
-            tipo2: 'Tipo 2',
-            tipo3: 'Tipo 3',
-            tipo4: 'Tipo 4',
-            tipo5: 'Tipo 5'
+            Cactus: 'Cactus',
+            Dracena: 'Dracena',
+            Potos: 'Potos',
+            Aspidistra: 'Aspidistra',
+            Sansevieria: 'Sansevieria'
           }
         },
         inputPlaceholder: 'Selecciona',
         inputValidator: (value) => {
           return new Promise((resolve) => {
-            if (value === 'tipo1' || value === 'tipo2' || value === 'tipo3' || value === 'tipo4' || value === 'tipo5') {
+            if (value === 'Cactus' || value === 'Dracena' || value === 'Potos' 
+            || value === 'Aspidistra' || value === 'Sansevieria') {
               resolve()
             } else {
               resolve('Debes elegir una opción 🙈🙈')
@@ -127,20 +139,7 @@ export class ListPotsComponent implements OnInit {
             confirmButtonText: 'Estupendo!'
           })
         }, err => {
-          if (err.status === 0) {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Ha ocurrido un error con nuestros servidores 😢'
-            });
-          } else {
-            Swal.fire({
-              icon: 'warning',
-              title: 'Oops...',
-              text: 'Parece que no existe el identificador de tu maceta!'
-            });
-          }
-
+          this.showErrorMesage(err, false);
         })
       }
       else if (
@@ -159,22 +158,41 @@ export class ListPotsComponent implements OnInit {
         })
       }
     });
-
-    console.log(potNew)
-
   }
 
-  async getPotInfoById(id: number): Promise<boolean> {
+  showErrorMesage(error, isList) {
+    if (error.status === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ha ocurrido un error con nuestros servidores 😢'
+      });
+    } else {
+      if (isList) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'No se pudo traer la información de las materas!'
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'Parece que no existe el identificador de tu matera!'
+        });
+      }
+    }
+  }
 
-    let result = false;
-
-    await this.potService.getPodByid(id).subscribe(pot => {
-      return true;
+  crearMatera() {
+    this.potService.createPot().subscribe(pot => {
+      Swal.fire({
+        icon: 'info',
+        title: 'Genial!',
+        text: 'Se ha creado la matera con éxito!'
+      });
     }, err => {
-      return false;
+      this.showErrorMesage(err, false);
     });
-
-    return result;
-  }
-
+  } 
 }
