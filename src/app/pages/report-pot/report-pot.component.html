@@ -1,10 +1,41 @@
-<h1>{{pot.name}}</h1>
+<div style="margin-top: 2rem; margin-left: 5rem; margin-right: 5rem;">
 
-<h3>El tipo de su planta es {{pot.type}}</h3>
+    <!-- Inicio -->
+  <div>
+    <div class="container">
+      <!-- Grid row-->
+      <div class="row py-4 d-flex align-items-center">
 
-<h3>Estadísticas</h3>
+        <!-- Grid column -->
+        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+            <h1 class="display-4 lead">{{ pot.name }}</h1>
+            <h3>El tipo de su planta es {{ pot.type }}</h3>
+        </div>
+        <!-- /Grid column -->
 
-<div *ngFor="let sensor of sensorValues; let i = index">
-    <app-chart [nameDevice]="sensor.name" [values]="sensor.values" [deviceId]="sensor.id"
-    [dates]="sensor.dates" position="{{i}}" [potId]="pot.id"></app-chart>
+        <!-- Grid column -->
+        <div class="col-md-6 col-lg-7 text-center text-md-right">
+            <br>
+            <p align="end" class="lead">Desde aquí podrás actualizar el nombre de tu matera o Regarla ¿Qué esperas?</p>
+            <button class="btn btn-success btn-lg" (click)="regarMatera()">Regar matera</button>
+            <!-- <button *ngIf="role == 1" class="btn btn-success btn-lg" (click)="crearMatera()" style="margin-left: 5px;">Crear matera</button> -->
+        </div>
+        <!-- /Grid column -->
+      </div>
+      <!-- /Grid row-->
+      <hr class="my-4">
+    </div>
+</div>
+<!-- /Inicio -->
+  
+  <div *ngFor="let sensor of sensorValues; let i = index">
+    <app-chart
+      [nameDevice]="sensor.name"
+      [values]="sensor.values"
+      [deviceId]="sensor.id"
+      [dates]="sensor.dates"
+      position="{{ i }}"
+      [potId]="pot.id"
+    ></app-chart>
+  </div>
 </div>

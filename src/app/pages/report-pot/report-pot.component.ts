@@ -89,6 +89,10 @@ export class ReportPotComponent implements OnInit {
     }
   }
 
+  regarMatera() {
+    console.log("Me estan regando");
+  }
+
   ngOnDestroy(): void {
     this.params.unsubscribe();
   }
