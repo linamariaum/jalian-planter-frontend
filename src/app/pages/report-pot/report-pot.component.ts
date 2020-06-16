@@ -36,58 +36,66 @@ export class ReportPotComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.params = this.route.params.subscribe(
-      (params) => {
-        const potId = params['id'];
+    const userId = localStorage.getItem('id');
 
-        if (potId) {
-          //Traer la información de la planta
-          this.potService.getPodByid(potId).subscribe(
-            (data) => {
-              this.pot = data;
+    if (!userId) {
+      this.router.navigateByUrl('/login');
+    } else {
 
-              //Tomar todos los mensajes enviados por un sensor
-              this.potService.getMessagesOfAPot(potId).subscribe(
-                (data) => {
-                  // Cada sensor separado en un vector
-                  this.sensorValues = this.formatValuesService.formatSensorData(
-                    data
-                  );
-                },
-                (err) => {
-                  this.showErrorMessage(
-                    err,
-                    'Los sensores de tu maceta aún no recolectan información!'
-                  );
-                }
-              );
-
-              //Tomar todos los tips
-              this.tipService.getAllTips().subscribe(
-                (tips) => {
-                  this.tips = tips;
-                },
-                (err) => {
-                  this.showErrorMessage(err, 'No hay tips hoy para tu planta!');
-                }
-              );
-            },
-            (err) => {
-              this.showErrorMessage(
-                err,
-                'La maceta con ese identificador no hace parte de tu familia!'
-              );
-              this.router.navigate(['pots']);
-            }
-          );
-        } else {
-          alert('No hay id');
+      this.params = this.route.params.subscribe(
+        (params) => {
+          const potId = params['id'];
+  
+          if (potId) {
+            //Traer la información de la planta
+            this.potService.getPodByid(potId).subscribe(
+              (data) => {
+                this.pot = data;
+  
+                //Tomar todos los mensajes enviados por un sensor
+                this.potService.getMessagesOfAPot(potId).subscribe(
+                  (data) => {
+                    // Cada sensor separado en un vector
+                    this.sensorValues = this.formatValuesService.formatSensorData(
+                      data
+                    );
+                  },
+                  (err) => {
+                    this.showErrorMessage(
+                      err,
+                      'Los sensores de tu maceta aún no recolectan información!'
+                    );
+                  }
+                );
+  
+                //Tomar todos los tips
+                this.tipService.getAllTips().subscribe(
+                  (tips) => {
+                    this.tips = tips;
+                  },
+                  (err) => {
+                    this.showErrorMessage(err, 'No hay tips hoy para tu planta!');
+                  }
+                );
+              },
+              (err) => {
+                this.showErrorMessage(
+                  err,
+                  'La maceta con ese identificador no hace parte de tu familia!'
+                );
+                this.router.navigate(['pots']);
+              }
+            );
+          } else {
+            alert('No hay id');
+          }
+        },
+        (err) => {
+          alert('Problemas con la suscripción');
         }
-      },
-      (err) => {
-        alert('Problemas con la suscripción');
-      }
-    );
+      );
+    }
+    
   }
 
   showErrorMessage(error, message) {
@@ -155,7 +163,23 @@ export class ReportPotComponent implements OnInit {
     );
   }
 
+  showTip() {
+    const size = this.tips.length;
+
+    const random = Math.floor(Math.random() * size);
+
+    const tip = this.tips[random %  size];
+    
+    Swal.fire({
+      icon: 'info',
+      title: 'Ten presente!',
+      text: tip.message,
+    });
+  }
+
   ngOnDestroy(): void {
-    this.params.unsubscribe();
+    if (this.params) {
+      this.params.unsubscribe();
+    }
   }
 }

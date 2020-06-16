@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OptionItem } from 'src/app/models/optionItem';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import Swal from 'sweetalert2';
 
@@ -41,19 +41,26 @@ export class ProfileComponent implements OnInit {
     email: ''
   }
 
-  constructor(private authService: AuthService, private route: ActivatedRoute) { }
+  constructor(private authService: AuthService, private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.params = this.route.params.subscribe(params => {
-      const userId = params['id'];
-
-      if (userId) {
-        this.authService.getUserById(userId).subscribe(data => {
-          this.user = data;
-          this.formEdit[1].ejemplo = this.user.email;
-        });
-      }
-    })
+    const idUser = localStorage.getItem('id');
+    
+    if (!idUser) {
+      this.router.navigateByUrl('/login');
+    } else {
+      this.params = this.route.params.subscribe(params => {
+        const userId = params['id'];
+  
+        if (userId) {
+          this.authService.getUserById(userId).subscribe(data => {
+            this.user = data;
+            this.formEdit[1].ejemplo = this.user.email;
+          });
+        }
+      })
+    }
   }
 
   guardar() {
