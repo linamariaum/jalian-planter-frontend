@@ -1,0 +1,108 @@
+@import '../../../styles.scss';
+
+a {
+  text-decoration:none
+}
+
+.title{
+  font-size: 5.5vmin;
+  text-align: center;
+  color: whitesmoke;
+  letter-spacing: 0.23rem;
+  font-weight: 600;
+  text-shadow: 0.2rem 0.2rem 0.2rem #070707;
+}
+
+.pot-card {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
+    box-shadow: -0.5rem 0.5rem 0.75rem $green-dark;
+    width: 95%;
+    border:0;
+    flex-direction: row;
+    line-height: 1;
+
+    &__info{
+      width: 68%;
+      padding: 0.1rem 0 0.4rem 0.3rem;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+    &__title {
+      text-align: center;
+    }
+  }
+
+  .far{
+    font-size: 0.8rem;
+  }
+
+  .pot-card:hover {
+    @include transition;
+    box-shadow: -0.5rem 0.5rem 0.75rem $green-ligth;
+  }
+
+  //576px
+  @include media-breakpoint-up(sm) {
+    .title{
+      font-size: 5vmin;
+    }
+    .pot-card{
+        width: 75%;
+      &__info{
+        width: 66%;
+      }
+      &__title{
+        font-size: 1.05rem;
+      }
+    }
+  }
+  //768px
+  @include media-breakpoint-up(md) {
+    .title{
+      font-size: 6.2vmin;
+    }
+    .pot-card{
+      width: 43%;
+      margin: 1rem;
+      &__info{
+        width: 65%;
+      }
+      &__title{
+        font-size: 1rem;
+      }
+    }
+  }
+  //992px
+  @include media-breakpoint-up(lg) {
+
+    .pot-card{
+      width: 40%;
+    }
+  }
+  //1200px
+  @include media-breakpoint-up(xl) {
+
+    .pot-card{
+      width: 27%;
+      &__info{
+        width: 66%;
+      }
+      &__title{
+        font-size: 1rem;
+      }
+    }
+
+  }
+
+  @media (min-width: 1500px){
+    .pot-card{
+      width: 22%;
+      &__info{
+        width: 67%;
+        padding: 1rem 0.5rem 0.5rem 0.4rem;
+      }
+    }
+  }

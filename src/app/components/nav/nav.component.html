@@ -12,10 +12,10 @@
           <a class="nav-link" [routerLink]="['/profile', userId]">Perfil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Dispositivos</a>
+          <a class="nav-link" [routerLink]="['/devices']" *ngIf="role==1">Dispositivos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Tips</a>
+          <a class="nav-link" [routerLink]="['/tips']" *ngIf="role==1">Tips</a>
         </li>
       </ul>
     </div>

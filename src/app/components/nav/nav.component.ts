@@ -9,11 +9,13 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
 
   userId: string;
+  role: number;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('id');
+    this.role = Number(localStorage.getItem('role'));
   }
   
   logout() {

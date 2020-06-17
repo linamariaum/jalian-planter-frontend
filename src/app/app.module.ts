@@ -32,6 +32,8 @@ const stompConfig: StompConfig = {
   debug: true
 }
 import { NavComponent } from './components/nav/nav.component';
+import { ListTipsComponent } from './pages/list-tips/list-tips.component';
+import { ListDevicesComponent } from './pages/list-devices/list-devices.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { NavComponent } from './components/nav/nav.component';
     FormInputComponent,
     FormSelectComponent,
     ChartComponent,
-    NavComponent
+    NavComponent,
+    ListTipsComponent,
+    ListDevicesComponent
   ],
   imports: [
     BrowserModule,
