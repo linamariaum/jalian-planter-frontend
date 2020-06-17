@@ -4,6 +4,7 @@ import { Chart } from 'chart.js';
 import { StompService } from "@stomp/ng2-stompjs";
 import {Message} from '@stomp/stompjs';
 import {Observable, Subscription} from "rxjs";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-chart',
@@ -110,6 +111,19 @@ export class ChartComponent implements OnInit {
   verifyIncomingData(deviceId, value) {
     const deviceIdNumber = Number(deviceId);
     const valueNumber = Number(value);
+
+    const deviceWaterLevel = 1003;
+    const minimunWaterLevel = 20;
+
+    if (deviceIdNumber == deviceWaterLevel) {
+      if (valueNumber <= minimunWaterLevel) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Ooopss!',
+          text: 'El nivel del agua está bajo, recuerda llenar el tanque 😕!'
+        });
+      }
+    }
 
     if (deviceIdNumber === this.deviceId) {
       this.insertData(valueNumber);

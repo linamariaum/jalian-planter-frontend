@@ -149,7 +149,8 @@ export class ReportPotComponent implements OnInit {
       potId: this.pot.id,
       value: 1,
     };
-    this.deviceService.sendMessage(1004, sendRequest).subscribe(
+    const sensorRiego = 1004;
+    this.deviceService.sendMessage(sensorRiego, sendRequest).subscribe(
       (data) => {
         Swal.fire({
           icon: 'success',
