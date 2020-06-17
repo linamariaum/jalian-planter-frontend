@@ -1,0 +1,49 @@
+<app-nav></app-nav>
+<div style="margin-top: 2rem; margin-left: 5rem; margin-right: 5rem">
+  <!-- Inicio -->
+  <div>
+      <div class="container">
+        <!-- Grid row-->
+        <div class="row py-4 d-flex align-items-center">
+
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+              <img src="../../../assets/pot1.png" style="width: 25%;">
+              <img src="../../../assets/pot2.png" style="width: 25%;">
+              <img src="../../../assets/pot3.png" style="width: 25%;">
+              <img src="../../../assets/pot6.png" style="width: 25%;">
+          </div>
+          <!-- /Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-7 text-center text-md-right">
+              <br>
+              <p align="end" class="lead">Desde aquí podrás crear un nuevo dispositivo. ¿Qué esperas?</p>
+              <button class="btn btn-success btn-lg" (click)="createDevice()">Agregar dispositivo</button>
+          </div>
+          <!-- /Grid column -->
+        </div>
+        <!-- /Grid row-->
+        <hr class="my-4">
+      </div>
+  </div>
+  <!-- /Inicio -->
+  <!-- Cards -->
+  <div>
+    <h3 class="title">Nuestos dispositivos</h3>
+    <div class="row justify-content-center">
+      <div *ngFor="let device of devices; let i=index" class="pot-card">
+        <!-- <a role="button" [routerLink]="['/tip', tip.id]" style="text-decoration:none"> -->
+          <div [class]="clase[i%4]">
+            <div class="card-body">
+              <h4 class="card-title pot-card__info">{{device.id}}</h4>
+              <p class="card-text pot-card__info">{{device.name}}</p>
+            </div>
+          </div>
+        <!-- </a> -->
+      </div>
+    </div>
+  </div>
+  <!-- Cards -->
+</div>
+

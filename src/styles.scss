@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootswatch/dist/materia/variables";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootswatch/dist/materia/bootswatch";
+
+$green-dark:    #1b4b36 !default;
+$green-ligth:   #538f6a !default;
+$green-cake:    #aebd77 !default;
+$color-blank:   #e8ebee !default;
+$brown-ligth:   #fad8bb !default; //d7e1eb
+$fondo:         #cdd8e7 !default;
+
+.background-green-dark {
+    background-color: $green-dark;
+}
+
+.background-green-ligth {
+    background-color: $green-ligth;
+}
+
+.background-green-cake {
+    background-color: $green-cake;
+}
+
+.background-color-blank {
+    background-color: $color-blank;
+}
+
+.background-brown-ligth {
+    background-color: $brown-ligth;
+}
+
+.h1 {
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.Container-center {
+    //margin: 2rem 30rem 2rem 30rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    justify-content: center;
+    background-color: $color-blank;
+}
+
+.fondo {
+    background-color: $fondo;
+}

@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 
+// interface datosParaelFormInput  {
+//   tipo: string // email, text
+//   content: string
+//   editable?: boolean
+// }
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +13,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'jalian-planter-frontend';
+
+  //cosa: datosParaelForm[];
+
 }

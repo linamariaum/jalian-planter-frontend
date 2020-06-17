@@ -1,0 +1,45 @@
+<div class="jumbotron background-color-blank" style="margin-top: 2rem; margin-left: 5rem; margin-right: 5rem">
+   <!-- Grid row-->
+    <div class="row py-4 d-flex align-items-center">
+      <!-- Grid column -->
+      <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+        <h1 class="display-3">Registro!</h1>
+        <p class="lead">¿Listo para hacer parte de la familia Jalian Planter?.</p>
+      </div>
+      <!-- /Grid column -->
+      <!-- Grid column -->
+      <div class="col-md-6 col-lg-5 text-center text-md-rigth mb-4 mb-md-0">
+        <img src="../../../assets/pot1.png" style="width: 40%;">
+      </div>
+      <!-- /Grid column -->
+    </div>
+    <!-- /Grid row-->
+    <hr class="my-4">
+    <div>
+        <app-form-input
+            [titulo] = "formSignUp[0].titulo"
+            [ejemplo] = "formSignUp[0].ejemplo"
+            [tipo] = "formSignUp[0].tipo"
+            (contenido) = "formSignUp[0].contenido=$event"
+            (valido)="formSignUp[0].valido=$event">
+        </app-form-input>
+        <app-form-input
+            [titulo] = "formSignUp[1].titulo"
+            [ejemplo] = "formSignUp[1].ejemplo"
+            [tipo] = "formSignUp[1].tipo"
+            (contenido) = "formSignUp[1].contenido=$event"
+            (valido)="formSignUp[1].valido=$event">
+        </app-form-input>
+        <app-form-input
+            [titulo] = "formSignUp[2].titulo"
+            [ejemplo] = "formSignUp[2].ejemplo"
+            [tipo] = "formSignUp[2].tipo"
+            (contenido) = "formSignUp[2].contenido=$event"
+            (valido)="formSignUp[2].valido=$event">
+        </app-form-input>
+        <br>
+        <p class="lead text-center">
+            <a class="btn btn-success btn-lg" (click)="registrar()" role="button" style="color: ivory;">Registrarse</a>
+        </p>
+    </div>
+</div>

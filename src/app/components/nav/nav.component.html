@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-dark background-green-ligth" *ngIf="userId">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/pots']">Mis materas <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/profile', userId]">Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/devices']" *ngIf="role==1">Dispositivos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/tips']" *ngIf="role==1">Tips</a>
+        </li>
+      </ul>
+    </div>
+      <button class="btn" (click)="logout()" [routerLink]="['/login']" align="end" style="text-decoration: none; color:white">Salir</button>
+</nav>
