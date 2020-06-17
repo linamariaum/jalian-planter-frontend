@@ -171,7 +171,6 @@ export class ListPotsComponent implements OnInit {
 
     this.potService.getPodsByUserId(Number(userId)).subscribe(pots => {
       this.pots = pots;
-      console.log(this.pots);
     }, err => {
       this.showErrorMesage(err, 'No tienes macetas asociadas!');
     });
