@@ -6,13 +6,15 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PotComponent } from './pages/pot/pot.component';
 import { ListPotsComponent } from './pages/list-pots/list-pots.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { ListTipsComponent } from './pages/list-tips/list-tips.component'
+import { ListTipsComponent } from './pages/list-tips/list-tips.component';
+import { ListDevicesComponent } from './pages/list-devices/list-devices.component';
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'pots', pathMatch: 'full'},
   { path: 'login', component: AuthComponent },
   { path: 'tips', component: ListTipsComponent },
+  { path: 'devices', component: ListDevicesComponent },
   { path: 'report/:id', component: ReportPotComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'pots', component: ListPotsComponent },

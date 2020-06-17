@@ -18,8 +18,8 @@
           <!-- Grid column -->
           <div class="col-md-6 col-lg-7 text-center text-md-right">
               <br>
-              <p align="end" class="lead">Desde aquí podrás crear un nuevo tip. ¿Qué esperas?</p>
-              <button class="btn btn-success btn-lg" (click)="createTip()">Agregar tip</button>
+              <p align="end" class="lead">Desde aquí podrás crear un nuevo dispositivo. ¿Qué esperas?</p>
+              <button class="btn btn-success btn-lg" (click)="createDevice()">Agregar dispositivo</button>
           </div>
           <!-- /Grid column -->
         </div>
@@ -32,12 +32,12 @@
   <div>
     <h3 class="title">Nuestos tips</h3>
     <div class="row justify-content-center">
-      <div *ngFor="let tip of tips; let i=index" class="pot-card">
+      <div *ngFor="let device of devices; let i=index" class="pot-card">
         <!-- <a role="button" [routerLink]="['/tip', tip.id]" style="text-decoration:none"> -->
           <div [class]="clase[i%4]">
             <div class="card-body">
-              <h4 class="card-title pot-card__info">{{tip.id}}</h4>
-              <p class="card-text pot-card__info">{{tip.message}}</p>
+              <h4 class="card-title pot-card__info">{{device.id}}</h4>
+              <p class="card-text pot-card__info">{{device.name}}</p>
             </div>
           </div>
         <!-- </a> -->
