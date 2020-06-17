@@ -1,27 +1,25 @@
-# JalianPlanterFrontend
+![JalianPlanter](https://github.com/linamariaum/jalian-planter-frontend/blob/develop/src/assets/dise%C3%B1o-de-marca/LetraJalianPlanter(Verde).png)
+
+
+[![Developed by @andresr98](https://img.shields.io/badge/developed%20by-%40andresr98-52C9D5.svg  "Andrés Ruíz Graciano")](https://github.com/andresr98)
+[![Developed by @linamariaum](https://img.shields.io/badge/developed%20by-%40linamariaum-E482AF.svg  "Lina María Uribe")](https://github.com/linamariaum)
+[![Developed by @jaidiber1](https://img.shields.io/badge/developed%20by-%40jaidiber1-88DF60.svg  "Jaidiber Vanegas Cataño")](https://github.com/jaidiber1)
+
+<img src="https://github.com/linamariaum/jalian-planter-frontend/blob/develop/src/assets/dise%C3%B1o-de-marca/Logo.png" width="200">
+
+# Project Frontend
+
+This is an IoT project. Here is the frontend development. 
+The Backend repository is [here](https://github.com/andresr98/jalian-planter-backend).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. You need the backend project running on `http://localhost:8080/`.
 
-## Code scaffolding
+Aditionally, you need RabbitMQ message broker with `web_stomp plugin` enabled on port `15674`.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# General Architecture
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+<img src="https://github.com/linamariaum/jalian-planter-frontend/blob/develop/src/assets/arquitectura/Montaje.png" width="800">
